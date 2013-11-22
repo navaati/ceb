@@ -21,14 +21,14 @@ $(DIST)/audio/ : | $(DIST)
 	mkdir $@
 
 $(DIST)/% : % | $(DIST)
-	ln -f -t $(DIST) $<
+	cp -u -t $(DIST) $<
 $(DIST)/% : $(SITE)/% | $(DIST)
-	ln -f -t $(DIST) $<
+	cp -u -t $(DIST) $<
 
 $(BUILD)/%.sect : $(addprefix $(SITE)/,%/title %/lines dist/audio/%.mp3 dist/audio/%.webm) | $(BUILD)
 	./mk_section $* > $@
 $(BUILD)/%.sect : $(SITE)/%/custom | $(BUILD)
-	cp $< $@
+	cp -u $< $@
 
 $(DIST)/index.xhtml : $(addprefix $(BUILD)/, $(addsuffix .sect, $(SECTIONS))) | $(DIST)
 	./mk_html $(SECTIONS) > $@
