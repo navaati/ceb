@@ -33,10 +33,10 @@ $(BUILD)/%.sect : $(SITE)/%/custom | $(BUILD)
 $(DIST)/index.xhtml : $(addprefix $(BUILD)/, $(addsuffix .sect, $(SECTIONS))) | $(DIST)
 	./mk_html $(SECTIONS) > $@
 
-$(DIST)/swagga.scss : $(addprefix $(SITE)/,$(addsuffix /pos, $(SECTIONS)) $(addsuffix /color, $(SECTIONS))) | $(DIST)
+$(BUILD)/swagga.scss : $(addprefix $(SITE)/,$(addsuffix /pos, $(SECTIONS)) $(addsuffix /color, $(SECTIONS))) | $(BUILD)
 	./mk_css $(SECTIONS) > $@
 
-%.css : %.scss
+$(DIST)/%.css : $(BUILD)/%.scss | $(DIST)
 	scss $< $@
 
 $(DIST)/audio/%.mp3 : $(SITE)/%/audio.wav | $(DIST)/audio/
