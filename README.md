@@ -9,7 +9,7 @@ It depends on `make`, `sass` (a CSS preprocessor written in ruby), `ffmpeg` and 
 Installing
 ----------
 
-To install ceb, copy every file of it in `/usr/local/lib/ceb/`, except the `ceb` script itself which must be copied somewhere in your `PATH`, for example in `/usr/local/bin`.
+To install ceb, call the script `./install`. You can supply a prefix as parameter, else it will use `/usr/local`.
 
 Usage
 -----

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+prefix=/usr/local
+
+if [ "$1" != "" ]
+then
+    prefix=$1
+fi
+
+mkdir -p $prefix/lib/ceb
+cp Makefile mk_html mk_section mk_css swaggy.js template.xhtml _ceb.scss $prefix/lib/ceb/
+
+mkdir -p $prefix/bin
+sed -e "s:CEBDIR:$prefix/lib/ceb/:" ceb.in > $prefix/bin/ceb
