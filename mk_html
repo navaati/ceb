@@ -1,0 +1,21 @@
+#!/bin/sh
+
+{
+    cat <<EOF
+/CONTENT/d
+-;#
+EOF
+    for s in "$@"
+    do
+	cat <<EOF
+a
+     <section id="$s">
+.
+.r $SITE/build/$s.sect
+a
+     </section>
+.
+EOF
+    done
+    echo ",p"
+} | ed -s template.xhtml

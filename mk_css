@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo '@import "ceb";'
+echo -n '@include makeSections('
+for s in "$@"
+do
+    echo -n "($s $(tr -d '\n' < $SITE/$s/pos) $(tr -d '\n' < $SITE/$s/color)) "
+done
+echo ");"

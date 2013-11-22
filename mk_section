@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cat <<EOF
+       <h1>$(tr -d '\n' < $SITE/$1/title)</h1>
+       <audio controls="controls">
+	 <source src="audio/$1.webm" type="audio/webm"/>
+	 <source src="audio/$1.mp3" type="audio/mpeg"/>
+       </audio>
+       <ul>
+EOF
+while read l
+do
+    cat <<EOF
+        <li data-timecode="$(echo "$l" |cut '-d ' -f1)">$(echo "$l" |cut '-d ' -f2-)</li>
+EOF
+done < $SITE/$1/lines
+echo '       </ul>'

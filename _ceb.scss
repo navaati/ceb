@@ -1,0 +1,127 @@
+$pad: 1cm !default;
+$marg: 0.5cm !default;
+
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+audio {
+    width: 100%;
+}
+
+body > section {
+    position: fixed;
+
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: calc(100% - 3cm);
+    height: calc(100% - 3cm);
+
+    padding: $pad;
+    border-radius: $pad;
+}
+
+body > section > h1 {
+    margin: 0px;
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 2em;
+}
+
+// Transitions
+body {
+    transition-property: background-color;
+    transition-duration: 1s;
+}
+
+body > section {
+    transition-property: background-color, top, left;
+    transition-duration: 1s;
+}
+
+/*body > section li {
+    transition: opacity 0.5s;
+}*/
+
+// Title positions
+@mixin borderTitle {
+    position: relative;
+    font-size: 1.5em;
+}
+
+@mixin vertical {
+    @include borderTitle;
+    text-align: left;
+    
+    top: 0cm;
+    margin: 0px;
+    -webkit-transform-origin: center left;
+    -webkit-transform: rotate(90deg);
+    transform-origin: center left;
+    transform: rotate(90deg);
+}
+
+// Section positioning
+@function displacement($n) {
+    @return calc(#{$marg + $pad} + #{$n}*(100% - #{$marg + 2*$pad}))
+}
+
+@mixin pos($x,$y) {
+    top: displacement($y);
+    left: displacement($x);
+    
+    h1 {
+	@if $y == 0 {
+	    @if $x == -1 {
+		@include vertical;
+		left: calc(100% + #{$pad / 2});
+	    } @else if $x == 1 {
+		@include vertical;
+		left: -$pad/2;
+	    }
+	} @else if $x == 0 {
+	    @if $y == -1 {
+		@include borderTitle;
+		top: 100%;
+	    } @else if $y == 1 {
+		@include borderTitle;
+		top: -1cm;
+	    }
+	}
+    }
+}
+
+@function getName($s) {
+    @return nth($s,1);
+}
+
+@function getX($s) {
+    @return nth($s,2);
+}
+
+@function getY($s) {
+    @return nth($s,3);
+}
+
+@function getColor($s) {
+    @return nth($s,4);
+}
+
+@mixin makeSections($sections) {
+    @each $currSection in $sections {
+	section##{getName($currSection)} {
+	    background-color: getColor($currSection);
+	}
+	
+	body#show-#{getName($currSection)} {
+	    background-color: lighten(getColor($currSection),20);
+	    
+	    @each $section in $sections {
+		section##{getName($section)} {
+		    @include pos(getX($section) - getX($currSection),getY($section) - getY($currSection));
+		}
+	    }
+	}
+    }
+}
