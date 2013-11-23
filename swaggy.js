@@ -55,13 +55,13 @@ function init() {
 	
 	section.onclick = changeTo(section);
 	
-	var lis = section.getElementsByTagName("li");
+	/*var lis = section.getElementsByTagName("li");
 	if(lis.length != 0) {
 	    for(var j = 0; j < lis.length; j++) {
 		lis[j].style.opacity = 0;
 		lis[j].style.transition = "opacity 0.3s";
 	    }
-	}
+	}*/
 	
 	if(document.body.id == "show-" + section.id)
 	    launchAudio(section);
