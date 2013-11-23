@@ -1,13 +1,21 @@
 $pad: 1cm !default;
 $marg: 0.5cm !default;
 
+@import url("http://fonts.googleapis.com/css?family=Droid+Sans");
+
 html, body {
+    font-family: 'DejaVu Sans', 'Droid Sans', sans-serif;
+    font-size: 1.2em;
     height: 100%;
     margin: 0px;
 }
 
 audio {
     width: 100%;
+}
+
+a, a:visited {
+    color: inherit;
 }
 
 body > section {
